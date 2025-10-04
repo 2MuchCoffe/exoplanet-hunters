@@ -1,0 +1,25 @@
+============================================================
+EXOPLANET HUNTER - MODEL REPORT
+NASA Space Apps Challenge
+============================================================
+
+Training Time: 0.37 seconds
+Model Type: Random Forest Classifier (100 trees)
+Training Samples: 5612
+Testing Samples: 1404
+
+PERFORMANCE METRICS:
+  Accuracy: 88.60%
+  Precision: 82.57%
+  Recall: 82.57%
+
+CONFUSION MATRIX:
+  True Negatives:  865
+  False Positives: 80
+  False Negatives: 80
+  True Positives:  379
+
+TOP 3 MOST IMPORTANT FEATURES:
+  4. koi_prad: 0.1517
+  11. planet_star_ratio: 0.1277
+  1. koi_period: 0.1178
