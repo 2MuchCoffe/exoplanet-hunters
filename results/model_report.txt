@@ -3,7 +3,7 @@ EXOPLANET HUNTER - MODEL REPORT
 NASA Space Apps Challenge
 ============================================================
 
-Training Time: 0.37 seconds
+Training Time: 2.14 seconds
 Model Type: Random Forest Classifier (100 trees)
 Training Samples: 5612
 Testing Samples: 1404

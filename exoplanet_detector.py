@@ -35,7 +35,7 @@ print("=" * 60)
 
 # Load the CSV file from the data folder
 # pd.read_csv reads the CSV file and converts it into a DataFrame (like a table)
-data = pd.read_csv('exoplanet-hunter/data/cumulative.csv')
+data = pd.read_csv('data/cumulative.csv')
 
 print("\n📊 DATASET LOADED SUCCESSFULLY!")
 print("=" * 60)
@@ -305,7 +305,7 @@ plt.title('Confusion Matrix - Exoplanet Detection', fontsize=16, fontweight='bol
 plt.ylabel('Actual', fontsize=12)
 plt.xlabel('Predicted', fontsize=12)
 plt.tight_layout()
-plt.savefig('exoplanet-hunter/results/confusion_matrix.png', dpi=300, bbox_inches='tight')
+plt.savefig('results/confusion_matrix.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: confusion_matrix.png")
 plt.close()
 
@@ -322,7 +322,7 @@ plt.xlabel('Importance Score', fontsize=12)
 plt.title('Feature Importance - Which Measurements Matter Most?', fontsize=14, fontweight='bold')
 plt.gca().invert_yaxis()  # Highest importance at top
 plt.tight_layout()
-plt.savefig('exoplanet-hunter/results/feature_importance.png', dpi=300, bbox_inches='tight')
+plt.savefig('results/feature_importance.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: feature_importance.png")
 plt.close()
 
@@ -350,7 +350,7 @@ for i, bar in enumerate(bars):
     plt.text(bar.get_x() + bar.get_width()/2., height,
              f'{height:.1f}%', ha='center', va='bottom', fontsize=11, fontweight='bold')
 plt.tight_layout()
-plt.savefig('exoplanet-hunter/results/performance_metrics.png', dpi=300, bbox_inches='tight')
+plt.savefig('results/performance_metrics.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: performance_metrics.png")
 plt.close()
 
@@ -367,13 +367,13 @@ print("=" * 60)
 # Save the trained model using pickle
 import pickle
 
-with open('exoplanet-hunter/results/exoplanet_model.pkl', 'wb') as file:
+with open('results/exoplanet_model.pkl', 'wb') as file:
     pickle.dump(model, file)
 
 print("✓ Model saved as: exoplanet_model.pkl")
 
 # Save a summary report
-with open('exoplanet-hunter/results/model_report.txt', 'w') as f:
+with open('results/model_report.txt', 'w') as f:
     f.write("=" * 60 + "\n")
     f.write("EXOPLANET HUNTER - MODEL REPORT\n")
     f.write("NASA Space Apps Challenge\n")
@@ -471,5 +471,5 @@ print("✓ Detect exoplanets with 88.75% accuracy")
 print("✓ Process new star data instantly")
 print("✓ Identify which measurements matter most")
 print("✓ Provide confidence scores for predictions")
-print("\nAll results saved in: exoplanet-hunter/results/")
+print("\nAll results saved in: results/")
 print("=" * 60)
