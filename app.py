@@ -114,21 +114,41 @@ if 'page' not in st.session_state:
 
 # Sidebar navigation
 with st.sidebar:
-    st.markdown("# 🌍 Exoplanet Hunter")
+    st.markdown("### 🌍 Exoplanet Hunter")
     st.markdown("---")
     
-    # Custom CSS to hide radio circles ONLY in sidebar navigation
+    # Custom CSS for sidebar - maximize compression
     st.markdown("""
     <style>
     [data-testid="stSidebar"] div[role="radiogroup"] > label > div:first-child {
         display: none !important;
     }
     [data-testid="stSidebar"] div[role="radiogroup"] label {
-        padding: 8px 12px;
-        border-radius: 5px;
+        padding: 3px 6px;
+        border-radius: 4px;
+        margin: 0;
+        font-size: 14px;
     }
     [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
         background-color: rgba(74, 144, 226, 0.1);
+    }
+    [data-testid="stSidebar"] .element-container {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    [data-testid="stSidebar"] hr {
+        margin: 0.2rem 0 !important;
+    }
+    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
+        margin: 0.2rem 0 !important;
+        padding: 0 !important;
+    }
+    [data-testid="stSidebar"] .stMetric {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    [data-testid="stSidebar"] .stMetric > div {
+        padding: 0.1rem 0 !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -145,13 +165,13 @@ with st.sidebar:
     st.session_state.page = page
     
     st.markdown("---")
-    st.markdown("### Model Stats")
-    st.metric("Accuracy", "93.03%")
-    st.metric("Speed", "0.30s")
-    st.metric("Features", "22")
-    
-    st.markdown("---")
-    st.markdown("**NASA Space Apps 2025**")
+    st.caption("**Model Performance**")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Accuracy", "93.03%", label_visibility="visible")
+    with col2:
+        st.metric("Speed", "0.30s", label_visibility="visible")
+    st.metric("Features", "22", label_visibility="visible")
 
 # Route to pages
 if page == "🏠 Home":
