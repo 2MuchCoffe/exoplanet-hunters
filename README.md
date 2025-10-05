@@ -142,7 +142,7 @@ streamlit run app.py
 
 ## 🌐 Live Demo
 
-**Try it now**: [https://exoplanet-hunter.streamlit.app](https://exoplanet-hunters.streamlit.app)
+**Try it now**: [https://exoplanet-hunter.streamlit.app](https://exoplanet-hunter.streamlit.app)
 
 ---
 
