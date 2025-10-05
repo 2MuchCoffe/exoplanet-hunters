@@ -116,8 +116,7 @@ with st.sidebar:
     st.metric("Features", "22")
     
     st.markdown("---")
-    st.markdown("**Powered by XGBoost**")
-    st.markdown("NASA Space Apps 2025")
+    st.markdown("**NASA Space Apps 2025**")
 
 # Route to pages
 if page == "🏠 Home":
