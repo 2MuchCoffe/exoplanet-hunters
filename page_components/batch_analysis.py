@@ -40,7 +40,7 @@ def show(model):
                 "Number of Trees",
                 min_value=50,
                 max_value=500,
-                value=200,
+                value=300,
                 step=50,
                 key=f'n_est_{st.session_state.reset_counter}',
                 help="More trees = more accurate but slower"
@@ -61,7 +61,7 @@ def show(model):
             "Learning Rate",
             min_value=0.01,
             max_value=0.3,
-            value=0.1,
+            value=0.08,
             step=0.01,
             key=f'lr_{st.session_state.reset_counter}',
             help="Lower = more careful learning"
@@ -76,7 +76,7 @@ def show(model):
         comparison_df = pd.DataFrame({
             'Parameter': ['Number of Trees', 'Max Depth', 'Learning Rate'],
             'Your Settings': [n_estimators, max_depth, learning_rate],
-            'Default': [200, 6, 0.1],
+            'Default': [300, 6, 0.08],
             'Impact': [
                 '↑ Accuracy' if n_estimators > 200 else ('↓ Speed' if n_estimators < 200 else '='),
                 '↑ Complexity' if max_depth > 6 else ('↓ Overfitting' if max_depth < 6 else '='),

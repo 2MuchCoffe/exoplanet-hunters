@@ -49,29 +49,59 @@ def show(model):
         st.error("⚠️ Star database not loaded. Please ensure data files are available.")
         return
     
-    # Create star list
-    kepler_stars = kepler_df['display_name'].dropna().unique()[:1000]  # Limit for performance
-    all_stars = sorted([str(s) for s in kepler_stars if str(s) != 'nan'])
+    # Mission filter
+    st.markdown("### Filter by Mission")
+    mission_filter = st.radio(
+        "Choose mission",
+        ["All Missions", "Kepler Only", "TESS Only"],
+        horizontal=True,
+        label_visibility="collapsed"
+    )
+    
+    # Filter stars based on selection
+    if mission_filter == "Kepler Only":
+        filtered_stars = kepler_df['display_name'].dropna().unique()
+        source_df = kepler_df
+    elif mission_filter == "TESS Only" and len(tess_df) > 0:
+        filtered_stars = tess_df['display_name'].dropna().unique()
+        source_df = tess_df
+    else:  # All Missions
+        kepler_stars = kepler_df['display_name'].dropna().unique()
+        tess_stars = tess_df['display_name'].dropna().unique() if len(tess_df) > 0 else []
+        filtered_stars = list(kepler_stars) + list(tess_stars)
+        source_df = pd.concat([kepler_df, tess_df]) if len(tess_df) > 0 else kepler_df
+    
+    all_stars = sorted([str(s) for s in filtered_stars if str(s) != 'nan'])
     
     # Search box
     st.markdown("### Search for a Star")
+    st.caption(f"Showing {len(all_stars):,} stars from {mission_filter}")
     selected_star = st.selectbox(
-        "Type to search (showing first 1,000 Kepler stars)",
+        "Type to search",
         options=[''] + all_stars,
         help="Select a star to see its complete analysis"
     )
     
     if selected_star:
-        # Find star data
-        star_data = kepler_df[kepler_df['display_name'] == selected_star].iloc[0]
+        # Find star data from appropriate source
+        star_data = source_df[source_df['display_name'] == selected_star].iloc[0]
+        
+        # Determine mission
+        star_mission = star_data.get('mission', 'Kepler')
         
         st.markdown("---")
         
         # Star Profile Header
         col1, col2, col3 = st.columns(3)
         col1.markdown(f"### 🌟 {selected_star}")
-        col2.metric("Mission", "Kepler")
-        col3.metric("Status", star_data['koi_disposition'])
+        col2.metric("Mission", star_mission)
+        
+        # Get disposition based on mission
+        if star_mission == 'Kepler':
+            disposition = star_data.get('koi_disposition', 'Unknown')
+        else:
+            disposition = star_data.get('tfopwg_disp', 'Unknown')
+        col3.metric("Status", disposition)
         
         st.markdown("---")
         
@@ -79,18 +109,31 @@ def show(model):
         st.markdown("## 🤖 AI Analysis")
         
         try:
-            # Extract measurements
-            measurements = {
-                'period': star_data['koi_period'],
-                'depth': star_data['koi_depth'],
-                'duration': star_data['koi_duration'],
-                'prad': star_data['koi_prad'],
-                'teq': star_data['koi_teq'],
-                'insol': star_data['koi_insol'],
-                'steff': star_data['koi_steff'],
-                'slogg': star_data['koi_slogg'],
-                'srad': star_data['koi_srad']
-            }
+            # Extract measurements based on mission
+            if star_mission == 'Kepler':
+                measurements = {
+                    'period': star_data.get('koi_period'),
+                    'depth': star_data.get('koi_depth'),
+                    'duration': star_data.get('koi_duration'),
+                    'prad': star_data.get('koi_prad'),
+                    'teq': star_data.get('koi_teq'),
+                    'insol': star_data.get('koi_insol'),
+                    'steff': star_data.get('koi_steff'),
+                    'slogg': star_data.get('koi_slogg'),
+                    'srad': star_data.get('koi_srad')
+                }
+            else:  # TESS
+                measurements = {
+                    'period': star_data.get('pl_orbper'),
+                    'depth': star_data.get('pl_trandep'),
+                    'duration': star_data.get('pl_trandurh'),
+                    'prad': star_data.get('pl_rade'),
+                    'teq': star_data.get('pl_eqt'),
+                    'insol': star_data.get('pl_insol'),
+                    'steff': star_data.get('st_teff'),
+                    'slogg': star_data.get('st_logg'),
+                    'srad': star_data.get('st_rad')
+                }
             
             # Check for NaN
             if any(pd.isna(v) for v in measurements.values()):
@@ -134,8 +177,7 @@ def show(model):
                     st.metric("AI Confidence", f"{confidence:.2f}%")
                 
                 with col3:
-                    nasa_status = star_data['koi_disposition']
-                    match = (prediction == 1 and 'CONFIRMED' in nasa_status) or (prediction == 0 and 'FALSE' in nasa_status)
+                    match = (prediction == 1 and 'CONFIRMED' in str(disposition).upper()) or (prediction == 0 and ('FALSE' in str(disposition).upper() or 'FP' in str(disposition).upper()))
                     st.metric("Match with NASA", "✅" if match else "❌")
             
             st.markdown("---")
