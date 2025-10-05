@@ -3,9 +3,12 @@ data/*.zip
 # Allow main dataset files for star lookup
 !data/cumulative.csv
 !data/tess_data.csv
-# Keep test data
-!data/test_data_for_demo/*.csv
+# Exclude test data (generated files, keep local only)
+data/test_data_for_demo/
 
+# Results (allow model, exclude visualizations)
+results/*.png
+results/model_report.txt
 !results/xgboost_model.pkl
 
 # Python
