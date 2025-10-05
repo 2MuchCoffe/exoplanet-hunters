@@ -84,15 +84,27 @@ def show():
     
     # Call to action
     st.markdown("### Get Started")
-    st.markdown("Choose an option from the sidebar to begin:")
+    st.markdown("Choose an option to begin:")
     
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.info("**📊 Batch Analysis**\n\nUpload a CSV file with multiple stars for comprehensive analysis.")
+        if st.button("📊 Batch Analysis", use_container_width=True):
+            st.session_state.page = "📊 Batch Analysis"
+            st.rerun()
+        st.caption("Upload CSV files for comprehensive analysis")
     
     with col2:
-        st.success("**🔮 Single Prediction**\n\nEnter measurements for one star to get instant prediction.")
+        if st.button("🔍 Star Lookup", use_container_width=True):
+            st.session_state.page = "🔍 Star Lookup"
+            st.rerun()
+        st.caption("Search 7,300+ real stars")
+    
+    with col3:
+        if st.button("🔮 Single Prediction", use_container_width=True):
+            st.session_state.page = "🔮 Single Prediction"
+            st.rerun()
+        st.caption("Manual measurement entry")
     
     st.markdown("---")
     

@@ -39,6 +39,16 @@ def load_custom_css():
         color: #4a90e2 !important;
     }
     
+    /* Hide header anchor links (the link icon on hover) */
+    .stMarkdown a[href^="#"] {
+        display: none !important;
+    }
+    
+    /* Fix sidebar scrolling */
+    [data-testid="stSidebar"] > div:first-child {
+        padding-bottom: 0;
+    }
+    
     .stButton>button {
         background-color: #4a90e2;
         color: white;
@@ -98,6 +108,10 @@ def load_model():
 
 model = load_model()
 
+# Initialize session state for page navigation
+if 'page' not in st.session_state:
+    st.session_state.page = "🏠 Home"
+
 # Sidebar navigation
 with st.sidebar:
     st.markdown("# 🌍 Exoplanet Hunter")
@@ -119,16 +133,21 @@ with st.sidebar:
     </style>
     """, unsafe_allow_html=True)
     
+    # Use session state if set, otherwise use radio
     page = st.radio(
         "Navigation",
         ["🏠 Home", "📊 Batch Analysis", "🔍 Star Lookup", "🔮 Single Prediction", "📚 About"],
+        index=["🏠 Home", "📊 Batch Analysis", "🔍 Star Lookup", "🔮 Single Prediction", "📚 About"].index(st.session_state.get('page', "🏠 Home")),
         label_visibility="collapsed"
     )
     
+    # Update session state
+    st.session_state.page = page
+    
     st.markdown("---")
     st.markdown("### Model Stats")
-    st.metric("Accuracy", "93.03%", "+4.28%")
-    st.metric("Speed", "0.30s", "-38%")
+    st.metric("Accuracy", "93.03%")
+    st.metric("Speed", "0.30s")
     st.metric("Features", "22")
     
     st.markdown("---")
