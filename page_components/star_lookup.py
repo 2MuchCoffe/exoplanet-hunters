@@ -11,8 +11,9 @@ import plotly.graph_objects as go
 def load_star_database():
     """Load star databases from Kepler and TESS"""
     try:
-        # Load Kepler data
-        kepler_df = pd.read_csv('data/cumulative.csv', skiprows=53, low_memory=False)
+        # Load Kepler data using smart reader
+        from utils.data_processor import smart_csv_reader
+        kepler_df, skip_lines = smart_csv_reader('data/cumulative.csv')
         kepler_df = kepler_df[kepler_df['koi_disposition'].isin(['CONFIRMED', 'FALSE POSITIVE'])]
         kepler_df = kepler_df.dropna(subset=['koi_period', 'koi_depth', 'koi_duration', 'koi_prad'])
         
@@ -20,9 +21,9 @@ def load_star_database():
         kepler_df['display_name'] = kepler_df['kepler_name'].fillna(kepler_df['kepoi_name'])
         kepler_df['mission'] = 'Kepler'
         
-        # Load TESS data
+        # Load TESS data using smart reader
         try:
-            tess_df = pd.read_csv('data/tess_data.csv', low_memory=False, on_bad_lines='skip')
+            tess_df, tess_skip = smart_csv_reader('data/tess_data.csv')
             tess_df = tess_df[tess_df['tfopwg_disp'].isin(['PC', 'FP', 'CP'])]
             tess_df['display_name'] = 'TOI-' + tess_df['toi'].astype(str)
             tess_df['mission'] = 'TESS'
