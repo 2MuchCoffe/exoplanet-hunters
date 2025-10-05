@@ -117,38 +117,36 @@ with st.sidebar:
     st.markdown("### 🌍 Exoplanet Hunter")
     st.markdown("---")
     
-    # Custom CSS for sidebar - maximize compression
+    # Custom CSS for sidebar - clean navigation + compact stats
     st.markdown("""
     <style>
     [data-testid="stSidebar"] div[role="radiogroup"] > label > div:first-child {
         display: none !important;
     }
     [data-testid="stSidebar"] div[role="radiogroup"] label {
-        padding: 3px 6px;
-        border-radius: 4px;
-        margin: 0;
-        font-size: 14px;
+        padding: 10px 12px !important;
+        border-radius: 5px;
+        margin: 4px 0 !important;
+        font-size: 15px;
+        display: block !important;
+        width: 100% !important;
     }
     [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-        background-color: rgba(74, 144, 226, 0.1);
+        background-color: rgba(74, 144, 226, 0.15) !important;
     }
     [data-testid="stSidebar"] .element-container {
-        margin: 0 !important;
+        margin: 0.3rem 0 !important;
         padding: 0 !important;
     }
     [data-testid="stSidebar"] hr {
-        margin: 0.2rem 0 !important;
+        margin: 0.4rem 0 !important;
     }
-    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
-        margin: 0.2rem 0 !important;
-        padding: 0 !important;
+    [data-testid="stSidebar"] h3 {
+        margin: 0.3rem 0 !important;
     }
     [data-testid="stSidebar"] .stMetric {
         padding: 0 !important;
         margin: 0 !important;
-    }
-    [data-testid="stSidebar"] .stMetric > div {
-        padding: 0.1rem 0 !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -165,13 +163,10 @@ with st.sidebar:
     st.session_state.page = page
     
     st.markdown("---")
-    st.caption("**Model Performance**")
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("Accuracy", "93.03%", label_visibility="visible")
-    with col2:
-        st.metric("Speed", "0.30s", label_visibility="visible")
-    st.metric("Features", "22", label_visibility="visible")
+    st.markdown("**Model Performance**")
+    st.metric("Accuracy", "93.03%")
+    st.metric("Training Speed", "0.30s")
+    st.metric("Engineered Features", "22")
 
 # Route to pages
 if page == "🏠 Home":
