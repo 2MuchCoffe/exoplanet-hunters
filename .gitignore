@@ -44,3 +44,12 @@ Thumbs.db
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Personal/Team Documentation (not needed for deployment)
+PROJECT_CONTEXT.md
+PRESENTATION_GUIDE.md
+FEATURE_ENGINEERING_SUMMARY.md
+NASA_DATA_GUIDE.md
+presentation_resources/
+create_test_data.py
+exoplanet_detector_v2.py
