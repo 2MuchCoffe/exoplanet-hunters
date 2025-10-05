@@ -51,20 +51,20 @@ def show(model):
                 "Max Depth",
                 min_value=3,
                 max_value=10,
-                value=6,
+                value=5,
                 step=1,
                 key=f'depth_{st.session_state.reset_counter}',
-                help="Controls complexity. 5-7 recommended for XGBoost"
+                help="Controls complexity. Optimal: 5 (grid search validated)"
             )
         
         learning_rate = st.slider(
             "Learning Rate",
             min_value=0.01,
             max_value=0.3,
-            value=0.08,
+            value=0.12,
             step=0.01,
             key=f'lr_{st.session_state.reset_counter}',
-            help="Lower = more careful learning"
+            help="Optimal: 0.12 (grid search validated)"
         )
         
         if st.button("🔄 Reset to Defaults"):
@@ -72,15 +72,15 @@ def show(model):
             st.rerun()
         
         # Comparison table
-        st.markdown("**Current Settings vs Default:**")
+        st.markdown("**Current Settings vs Optimal (Grid Search):**")
         comparison_df = pd.DataFrame({
             'Parameter': ['Number of Trees', 'Max Depth', 'Learning Rate'],
             'Your Settings': [n_estimators, max_depth, learning_rate],
-            'Default': [300, 6, 0.08],
+            'Optimal': [300, 5, 0.12],
             'Impact': [
-                '↑ Accuracy' if n_estimators > 200 else ('↓ Speed' if n_estimators < 200 else '='),
-                '↑ Complexity' if max_depth > 6 else ('↓ Overfitting' if max_depth < 6 else '='),
-                '↑ Careful' if learning_rate < 0.1 else ('↓ Aggressive' if learning_rate > 0.1 else '=')
+                '=' if n_estimators == 300 else ('↑ Accuracy' if n_estimators > 300 else '↓ Speed'),
+                '=' if max_depth == 5 else ('↑ Complexity' if max_depth > 5 else '↓ Simpler'),
+                '=' if abs(learning_rate - 0.12) < 0.001 else ('↑ Aggressive' if learning_rate > 0.12 else '↓ Careful')
             ]
         })
         st.dataframe(comparison_df, use_container_width=True, hide_index=True)

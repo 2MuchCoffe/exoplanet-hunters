@@ -56,3 +56,10 @@ NASA_DATA_GUIDE.md
 presentation_resources/
 create_test_data.py
 exoplanet_detector_v2.py
+
+# Optimization and utility scripts (keep local)
+optimize_hyperparameters.py
+create_combined_csv.py
+results/hyperparameter_optimization.pkl
+results/optimization_report.txt
+results/xgboost_model_optimized.pkl

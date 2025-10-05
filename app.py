@@ -103,6 +103,22 @@ with st.sidebar:
     st.markdown("# 🌍 Exoplanet Hunter")
     st.markdown("---")
     
+    # Custom CSS to hide radio circles ONLY in sidebar navigation
+    st.markdown("""
+    <style>
+    [data-testid="stSidebar"] div[role="radiogroup"] > label > div:first-child {
+        display: none !important;
+    }
+    [data-testid="stSidebar"] div[role="radiogroup"] label {
+        padding: 8px 12px;
+        border-radius: 5px;
+    }
+    [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+        background-color: rgba(74, 144, 226, 0.1);
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
     page = st.radio(
         "Navigation",
         ["🏠 Home", "📊 Batch Analysis", "🔍 Star Lookup", "🔮 Single Prediction", "📚 About"],
