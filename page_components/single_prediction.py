@@ -169,4 +169,4 @@ def show(model):
             col2.metric("Non-Planet Probability", f"{probabilities[0]*100:.2f}%")
             
             # Progress bar
-            st.progress(confidence / 100)
+            st.progress(float(confidence / 100))
