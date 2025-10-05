@@ -1,6 +1,4 @@
-# Exoplanet Hunter - NASA Space Apps Challenge
-# XGBoost-Only Version with Kepler + TESS Support
-# This program uses Machine Learning to detect exoplanets from star data
+# This script is only used to train our AI Model :)
 
 import pandas as pd
 import numpy as np
