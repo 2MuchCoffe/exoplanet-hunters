@@ -9,10 +9,7 @@ def show(model):
     """Display single star prediction page"""
     
     st.title("🔮 Single Star Prediction")
-    st.markdown("Enter measurements for one star to predict if it has an exoplanet")
-    
-    # Optional star name
-    star_name = st.text_input("Star Name (optional)", placeholder="e.g., HD 209458")
+    st.markdown("Enter custom measurements to test the AI model")
     
     st.markdown("### Star Measurements")
     st.markdown("Enter the 9 core measurements from NASA telescope data:")
@@ -134,9 +131,6 @@ def show(model):
             # Display result
             st.markdown("---")
             st.markdown("## 🎯 Prediction Result")
-            
-            if star_name:
-                st.markdown(f"### Star: {star_name}")
             
             if prediction == 1:
                 st.balloons()

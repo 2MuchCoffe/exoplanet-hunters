@@ -105,7 +105,7 @@ with st.sidebar:
     
     page = st.radio(
         "Navigation",
-        ["🏠 Home", "📊 Batch Analysis", "🔮 Single Prediction", "📚 About"],
+        ["🏠 Home", "📊 Batch Analysis", "🔍 Star Lookup", "🔮 Single Prediction", "📚 About"],
         label_visibility="collapsed"
     )
     
@@ -126,6 +126,9 @@ if page == "🏠 Home":
 elif page == "📊 Batch Analysis":
     from page_components import batch_analysis
     batch_analysis.show(model)
+elif page == "🔍 Star Lookup":
+    from page_components import star_lookup
+    star_lookup.show(model)
 elif page == "🔮 Single Prediction":
     from page_components import single_prediction
     single_prediction.show(model)

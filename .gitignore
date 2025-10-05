@@ -1,10 +1,12 @@
-# Data files (too large for git)
-data/*.csv
+# Data files (allow main datasets, block others)
 data/*.zip
-!data/test_data_for_demo/test_set_20percent.csv
+# Allow main dataset files for star lookup
+!data/cumulative.csv
+!data/tess_data.csv
+# Keep test data
+!data/test_data_for_demo/*.csv
 
-# Model files (if too large)
-results/*.pkl
+!results/xgboost_model.pkl
 
 # Python
 __pycache__/
