@@ -190,8 +190,62 @@ def show():
     
     ---
     
+    ## 👥 Meet Team 2muchcoffe
+    
+    We're three first-year students from University of Kerala who came together for NASA Space Apps Challenge 2025, 
+    combining diverse academic backgrounds with a shared passion for space exploration and technology.
+    """)
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        **Munjid V H**  
+        *Team Lead & ML Engineer*
+        
+        - BBA Student, University of Kerala
+        - Self-taught in AI/ML and Python
+        - Used AI to learn exoplanet detection science
+        - Developed the complete ML pipeline and web application
+        """)
+    
+    with col2:
+        st.markdown("""
+        **Nazeeh Nabhan V**  
+        *Presentation Lead*
+        
+        - Computer Science Engineering
+        - UC Engineering Kariavattom
+        - Crafted presentation materials and visual storytelling
+        """)
+    
+    with col3:
+        st.markdown("""
+        **Abhishek M Raj**  
+        *Repository Manager*
+        
+        - Computer Science Engineering
+        - UC Engineering Kariavattom
+        - Django/Flask expert
+        - Managed GitHub repository and deployment
+        """)
+    
+    st.markdown("""
+    ---
+    
+    ## 💡 Our Approach
+    
+    As first-year students tackling a complex astrophysics challenge, we took an unconventional approach. 
+    Coming from a commerce background, Munjid used AI as a teacher—leveraging prompt engineering and machine 
+    learning not just to build the solution, but to understand the underlying science of exoplanet detection. 
+    This meta approach—using AI to learn AI for space science—represents how accessible advanced technology 
+    has become for motivated learners from any background.
+    
+    ---
+    
     <div style='text-align: center; padding: 20px;'>
     <p style='color: #95a5a6;'>Built with ❤️ for NASA Space Apps Challenge 2025</p>
     <p style='color: #95a5a6;'>Helping humanity discover new worlds 🌟</p>
+    <p style='color: #95a5a6; font-style: italic;'>*Fueled by curiosity and too much coffee ☕*</p>
     </div>
     """, unsafe_allow_html=True)
