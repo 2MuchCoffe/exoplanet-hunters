@@ -238,31 +238,20 @@ def show(model):
                     
                     # Download
                     st.markdown("### 💾 Download Results")
-                    col1, col2 = st.columns(2)
                     
-                    with col1:
-                        results_df = pd.DataFrame({
-                            'Star_Name': star_names,
-                            'Prediction': ['Planet' if p == 1 else 'No Planet' for p in predictions],
-                            'Confidence': (probabilities.max(axis=1) * 100).round(2)
-                        })
-                        
-                        st.download_button(
-                            "📥 Download CSV",
-                            results_df.to_csv(index=False),
-                            "exoplanet_predictions.csv",
-                            "text/csv",
-                            use_container_width=True
-                        )
+                    results_df = pd.DataFrame({
+                        'Star_Name': star_names,
+                        'Prediction': ['Planet' if p == 1 else 'No Planet' for p in predictions],
+                        'Confidence': (probabilities.max(axis=1) * 100).round(2)
+                    })
                     
-                    with col2:
-                        st.download_button(
-                            "📄 PDF Report",
-                            "PDF coming soon!",
-                            "report.pdf",
-                            disabled=True,
-                            use_container_width=True
-                        )
+                    st.download_button(
+                        "📥 Download Results as CSV",
+                        results_df.to_csv(index=False),
+                        "exoplanet_predictions.csv",
+                        "text/csv",
+                        use_container_width=True
+                    )
                 
                 except Exception as e:
                     st.error(f"❌ Error: {str(e)}")
