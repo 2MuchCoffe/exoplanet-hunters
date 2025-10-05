@@ -135,14 +135,6 @@ prediction, probability = predict_exoplanet(
 4. Support for TESS mission data
 5. Ensemble of multiple models
 
-## 👨‍💻 Hackathon Presentation Tips
-
-1. Start with the problem: Manual exoplanet detection is slow
-2. Explain your solution: AI can automate this
-3. Show the results: 88.75% accuracy, fast training
-4. Live demo: Predict on new data
-5. Discuss impact: Could help NASA process thousands of stars quickly
-
 ## 📝 License
 
 This project uses public NASA data and is created for the NASA Space Apps Challenge.
