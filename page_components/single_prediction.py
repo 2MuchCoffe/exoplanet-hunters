@@ -20,35 +20,40 @@ def show(model):
         period = st.number_input(
             "Orbital Period (days)",
             min_value=0.0,
-            value=10.0,
+            value=None,
+            placeholder="e.g., 10.5",
             help="Time for planet to complete one orbit around its star"
         )
         
         depth = st.number_input(
             "Transit Depth (ppm)",
             min_value=0.0,
-            value=200.0,
+            value=None,
+            placeholder="e.g., 200",
             help="How much the star dims when planet passes in front (parts per million)"
         )
         
         duration = st.number_input(
             "Transit Duration (hours)",
             min_value=0.0,
-            value=3.0,
+            value=None,
+            placeholder="e.g., 3.2",
             help="How long the transit lasts"
         )
         
         prad = st.number_input(
             "Planet Radius (Earth radii)",
             min_value=0.0,
-            value=1.5,
+            value=None,
+            placeholder="e.g., 1.5",
             help="Size of planet compared to Earth (1.0 = same as Earth)"
         )
         
         teq = st.number_input(
             "Equilibrium Temperature (K)",
             min_value=0.0,
-            value=400.0,
+            value=None,
+            placeholder="e.g., 400",
             help="Planet's equilibrium temperature in Kelvin"
         )
     
@@ -56,33 +61,42 @@ def show(model):
         insol = st.number_input(
             "Insolation Flux (Earth flux)",
             min_value=0.0,
-            value=1.5,
+            value=None,
+            placeholder="e.g., 1.5",
             help="Stellar radiation received (1.0 = same as Earth)"
         )
         
         steff = st.number_input(
             "Stellar Temperature (K)",
             min_value=0.0,
-            value=5500.0,
+            value=None,
+            placeholder="e.g., 5500",
             help="Temperature of the host star"
         )
         
         slogg = st.number_input(
             "Stellar Gravity (log10)",
             min_value=0.0,
-            value=4.5,
+            value=None,
+            placeholder="e.g., 4.5",
             help="Surface gravity of the star (log scale)"
         )
         
         srad = st.number_input(
             "Stellar Radius (Solar radii)",
             min_value=0.0,
-            value=1.0,
+            value=None,
+            placeholder="e.g., 1.0",
             help="Size of star compared to our Sun (1.0 = same as Sun)"
         )
     
     # Predict button
     if st.button("🚀 Analyze Star", type="primary", use_container_width=True):
+        # Validate all fields filled
+        if any(v is None for v in [period, depth, duration, prad, teq, insol, steff, slogg, srad]):
+            st.error("⚠️ Please fill in all 9 measurements before analyzing!")
+            return
+        
         with st.spinner("Analyzing..."):
             # Engineer features
             depth_per_duration = depth / (duration + 1e-10)
