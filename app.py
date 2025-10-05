@@ -87,8 +87,7 @@ def load_model():
         with open('results/xgboost_model.pkl', 'rb') as f:
             return pickle.load(f)
     except FileNotFoundError:
-        st.error("Model file not found! Please train the model first.")
-        return None
+        return None  # Silent - model will load when needed
 
 model = load_model()
 
