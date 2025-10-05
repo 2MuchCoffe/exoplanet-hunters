@@ -82,12 +82,19 @@ load_custom_css()
 # Load XGBoost model
 @st.cache_resource
 def load_model():
-    """Load the trained XGBoost model"""
-    try:
-        with open('results/xgboost_model.pkl', 'rb') as f:
-            return pickle.load(f)
-    except FileNotFoundError:
-        return None  # Silent - model will load when needed
+    """Load the trained XGBoost model with retry logic"""
+    import time
+    max_retries = 3
+    
+    for attempt in range(max_retries):
+        try:
+            with open('results/xgboost_model.pkl', 'rb') as f:
+                return pickle.load(f)
+        except FileNotFoundError:
+            if attempt < max_retries - 1:
+                time.sleep(1)  # Wait 1 second before retry
+            else:
+                return None  # Give up after 3 tries
 
 model = load_model()
 
