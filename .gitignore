@@ -1,0 +1,44 @@
+# Data files (too large for git)
+data/*.csv
+data/*.zip
+!data/test_data_for_demo/test_set_20percent.csv
+
+# Model files (if too large)
+results/*.pkl
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+.DS_Store?
+
+# Jupyter
+.ipynb_checkpoints
+
+# Environment variables
+.env
+
+# Streamlit
+.streamlit/secrets.toml
