@@ -1,152 +1,176 @@
-# 🌍 Exoplanet Hunter - NASA Space Apps Challenge
+# 🌍 Exoplanet Hunter - NASA Space Apps Challenge 2025
 
-An AI-powered exoplanet detection system using Machine Learning to analyze NASA Kepler mission data.
+**AI-Powered Exoplanet Detection Using NASA Data**
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://exoplanet-hunters.streamlit.app)
+
+---
 
 ## 🎯 Project Overview
 
-This project uses a Random Forest machine learning model to automatically detect exoplanets from star brightness measurements (transit photometry). The AI was trained on 5,612 stars from NASA's Kepler mission and achieved **88.75% accuracy** in identifying planets.
+Exoplanet Hunter is a comprehensive machine learning web application that automatically detects exoplanets from NASA Kepler and TESS mission data with **93.03% accuracy**. Using XGBoost with 22 physics-based features, we reduce manual review time from hours to seconds while maintaining high precision.
 
-## 📊 Key Results
+**Key Achievement**: Scientifically optimized through grid search of 1,728 hyperparameter combinations, validated with cross-validation.
 
-- **Accuracy**: 88.75%
-- **Training Time**: 0.27 seconds
-- **Dataset**: 7,016 stars from NASA Kepler mission
-- **Confirmed Planets Detected**: 377 out of 459 (82% recall)
-- **False Positives**: Only 76 (8% false positive rate)
+---
 
-## 🚀 How It Works
+## 📊 Performance Metrics
 
-1. **Data Collection**: Uses NASA Kepler exoplanet search results (transit method)
-2. **Feature Selection**: 9 key stellar measurements:
-   - Orbital period
-   - Transit depth (brightness dip)
-   - Transit duration
-   - Planet radius
-   - Equilibrium temperature
-   - Insolation flux
-   - Stellar temperature
-   - Stellar surface gravity
-   - Stellar radius
+| Metric | Score |
+|--------|-------|
+| **Test Accuracy** | 93.03% |
+| **Cross-Validation** | 91.65% ± 4.93% |
+| **Precision** | 93.5% |
+| **Recall** | 90.9% |
+| **False Positive Rate** | 3.5% |
+| **Training Speed** | 0.30 seconds |
 
-3. **Machine Learning**: Random Forest classifier with 100 decision trees
-4. **Prediction**: Instant classification of new star data
+---
+
+## 🚀 Features
+
+### 🔍 Star Lookup
+- Search **7,300+ Kepler and TESS stars**
+- Comprehensive star profiles with AI predictions
+- Compare AI results with NASA confirmations
+- Mission filter (All/Kepler/TESS)
+
+### 📊 Batch Analysis
+- **Multi-file upload** (200MB total limit)
+- Auto-detects Kepler or TESS format
+- **Hyperparameter tuning** for advanced users
+- Interactive visualizations (4 Plotly charts)
+- CSV download with star names
+
+### 🔮 Single Star Prediction
+- Manual measurement entry (9 NASA parameters)
+- Instant predictions
+- Planet type classification
+- Habitable zone calculation
+
+### 📚 Educational
+- Hyperparameter tuning with tooltips
+- Physics-based feature explanations
+- Interactive learning
+
+---
+
+## 🧬 Technical Details
+
+### Model
+- **Algorithm**: XGBoost (Gradient Boosting)
+- **Features**: 22 (9 original + 13 engineered)
+- **Optimization**: Grid search (1,728 combinations)
+- **Training**: 8,849 stars (Kepler + TESS)
+- **Split**: 80/20 train-test, stratified
+
+### Feature Engineering
+**Original (9 NASA measurements)**:
+- Orbital period, transit depth, duration
+- Planet radius, temperature, insolation
+- Stellar temperature, gravity, radius
+
+**Engineered (13 features)**:
+- Signal-to-noise ratios
+- Transit physics validation
+- Orbital mechanics (Kepler's laws)
+- Habitable zone calculations
+- Planet type classification
+
+### Hyperparameters (Optimized via Grid Search)
+```python
+n_estimators: 300
+max_depth: 5
+learning_rate: 0.12
+min_child_weight: 1
+subsample: 0.8
+colsample_bytree: 0.9
+```
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend**: Python 3.13
+- **ML Libraries**: XGBoost, scikit-learn
+- **Web Framework**: Streamlit
+- **Visualizations**: Plotly
+- **Data**: NASA Exoplanet Archive (Kepler + TESS)
+- **Deployment**: Streamlit Community Cloud
+
+---
 
 ## 📁 Project Structure
 
 ```
-exoplanet-hunter/
+exoplanet-hunters/
+├── app.py                    # Main Streamlit application
+├── page_components/          # 5 pages
+│   ├── home.py              # Homepage
+│   ├── batch_analysis.py    # Multi-file upload & analysis
+│   ├── star_lookup.py       # Search 7,300+ stars
+│   ├── single_prediction.py # Manual entry
+│   └── about.py             # Project info + team
+├── utils/
+│   ├── data_processor.py    # Kepler/TESS handler
+│   └── visualizations.py    # Plotly charts
 ├── data/
-│   └── cumulative.csv           # NASA Kepler dataset
+│   ├── cumulative.csv       # Kepler data
+│   └── tess_data.csv        # TESS data
 ├── results/
-│   ├── confusion_matrix.png     # Visual performance metrics
-│   ├── feature_importance.png   # Most important features
-│   ├── performance_metrics.png  # Accuracy breakdown
-│   ├── exoplanet_model.pkl      # Trained model
-│   └── model_report.txt         # Summary report
-├── exoplanet_detector.py        # Main program
-├── requirements.txt             # Dependencies
-└── README.md                    # This file
+│   └── xgboost_model.pkl    # Trained model
+└── requirements.txt         # Dependencies
 ```
 
-## 🔧 Installation & Usage
+---
 
-### Prerequisites
-- Python 3.7+
-- pip package manager
+## 🚀 Quick Start
 
-### Setup
+### Installation
 ```bash
-# Install dependencies
 pip install -r requirements.txt
-
-# Run the program
-python exoplanet_detector.py
 ```
 
-### Making Predictions
-The program includes a `predict_exoplanet()` function that can analyze new star data:
-
-```python
-# Example: Predict if a star has a planet
-prediction, probability = predict_exoplanet(
-    period=10.5,      # days
-    depth=200,        # ppm
-    duration=3.2,     # hours
-    prad=1.5,         # Earth radii
-    teq=400,          # Kelvin
-    insol=1.5,        # Earth flux
-    steff=5500,       # Kelvin
-    slogg=4.5,        # log10(cm/s^2)
-    srad=1.0          # Solar radii
-)
+### Run Locally
+```bash
+streamlit run app.py
 ```
 
-## 📈 Performance Metrics
+**Access at**: http://localhost:8501
 
-| Metric | Score |
-|--------|-------|
-| Overall Accuracy | 88.75% |
-| Precision (Planets) | 83.19% |
-| Recall (Planets) | 82.14% |
-| F1-Score | 82.66% |
+---
 
-## 🎓 What Makes This Special
+## 🌐 Live Demo
 
-1. **Fast Training**: Trains in under 1 second vs hours for neural networks
-2. **High Accuracy**: 88.75% accuracy competitive with complex deep learning models
-3. **Interpretable**: Feature importance shows which measurements matter most
-4. **Practical**: Can process new star data instantly
-5. **Robust**: Handles real-world NASA data with missing values
+**Try it now**: [https://exoplanet-hunters.streamlit.app](https://exoplanet-hunters.streamlit.app)
 
-## 🔬 Scientific Approach
+---
 
-**Transit Method**: When a planet passes in front of its star (transit), it blocks a tiny amount of starlight. Our AI learned to recognize these patterns and distinguish real planets from false positives (eclipsing binaries, instrument noise, etc.).
+## 👥 Team 2muchcoffe
 
-**Key Insight**: The model learned that transit depth and planet radius are the most important features for detection, which aligns with astrophysical theory!
+**First-Year Students, University of Kerala**
 
-## 🎤 Demo for Judges
+- **Munjid V H** - Team Lead & ML Engineer (BBA)
+- **Nazeeh Nabhan V** - Science Advisor & Presentation Lead (CS)
+- **Abhishek M Raj** - Web Application Developer (CS)
 
-1. **Show the visualizations** in `results/` folder
-2. **Run the program** - demonstrates quick training
-3. **Explain the accuracy** - 88.75% with low false positives
-4. **Live prediction** - feed new star data for instant results
-5. **Feature importance** - show what the AI learned
+---
 
-## 📚 Data Source
+## 📚 Data Sources
 
-- NASA Exoplanet Archive: Kepler Objects of Interest
-- Dataset: cumulative.csv (9,564 stars)
-- Confirmed Planets: 2,292
-- False Positives: 4,724
+- [NASA Exoplanet Archive - Kepler Objects of Interest](https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=cumulative)
+- [NASA Exoplanet Archive - TESS Objects of Interest](https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=TOI)
 
-## 🛠️ Technologies Used
+---
 
-- **Python 3**: Programming language
-- **pandas**: Data manipulation
-- **scikit-learn**: Machine learning (Random Forest)
-- **matplotlib & seaborn**: Visualizations
-- **NumPy**: Numerical computing
+## 🏆 NASA Space Apps Challenge 2025
 
-## 🎯 Future Improvements
+Built with ❤️ for the NASA Space Apps Challenge 2025
 
-1. Add neural network option for comparison
-2. Real-time data fetching from NASA API
-3. Web interface for easier demonstration
-4. Support for TESS mission data
-5. Ensemble of multiple models
+**Helping humanity discover new worlds** 🌟
 
-## 👨‍💻 Hackathon Presentation Tips
-
-1. Start with the problem: Manual exoplanet detection is slow
-2. Explain your solution: AI can automate this
-3. Show the results: 88.75% accuracy, fast training
-4. Live demo: Predict on new data
-5. Discuss impact: Could help NASA process thousands of stars quickly
+---
 
 ## 📝 License
 
 This project uses public NASA data and is created for the NASA Space Apps Challenge.
-
----
-
-**Built with ❤️ for NASA Space Apps Challenge 2024**
