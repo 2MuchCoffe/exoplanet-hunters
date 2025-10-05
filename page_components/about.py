@@ -190,7 +190,7 @@ def show():
     
     ---
     
-    ## 👥 Meet Team 2muchcoffe
+    ## 👥 Meet Team 2muchcoffee
     
     We're three first-year students from University of Kerala who came together for NASA Space Apps Challenge 2025, 
     combining diverse academic backgrounds with a shared passion for space exploration and technology.
@@ -206,28 +206,30 @@ def show():
         - BBA Student, University of Kerala
         - Self-taught in AI/ML and Python
         - Used AI to learn exoplanet detection science
-        - Developed the complete ML pipeline and web application
+        - Developed the machine learning model and feature engineering
         """)
     
     with col2:
         st.markdown("""
         **Nazeeh Nabhan V**  
-        *Presentation Lead*
+        *Science Advisor & Presentation Lead*
         
         - Computer Science Engineering
         - UC Engineering Kariavattom
-        - Crafted presentation materials and visual storytelling
+        - Astrophysics and exoplanet detection expert
+        - Guided the scientific foundation of the project
+        - Crafted presentation materials
         """)
     
     with col3:
         st.markdown("""
         **Abhishek M Raj**  
-        *Repository Manager*
+        *Web Application Developer*
         
         - Computer Science Engineering
         - UC Engineering Kariavattom
         - Django/Flask expert
-        - Managed GitHub repository and deployment
+        - Developed the web interface and deployment architecture
         """)
     
     st.markdown("""
