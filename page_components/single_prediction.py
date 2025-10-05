@@ -86,6 +86,12 @@ def show(model):
     
     # Predict button
     if st.button("🚀 Analyze Star", type="primary", use_container_width=True):
+        # Check if model is loaded
+        if model is None:
+            st.error("⚠️ Model is loading... Please wait a few seconds and try again, or refresh the page.")
+            st.info("The model file is being loaded from the server. This usually takes 5-10 seconds on first access.")
+            return
+        
         with st.spinner("Analyzing..."):
             # Engineer features
             depth_per_duration = depth / (duration + 1e-10)
