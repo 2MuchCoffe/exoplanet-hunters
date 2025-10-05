@@ -82,32 +82,6 @@ def show():
     
     st.markdown("---")
     
-    # Call to action
-    st.markdown("### Get Started")
-    st.markdown("Choose an option to begin:")
-    
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        if st.button("📊 Batch Analysis", use_container_width=True):
-            st.session_state.page = "📊 Batch Analysis"
-            st.rerun()
-        st.caption("Upload CSV files for comprehensive analysis")
-    
-    with col2:
-        if st.button("🔍 Star Lookup", use_container_width=True):
-            st.session_state.page = "🔍 Star Lookup"
-            st.rerun()
-        st.caption("Search 7,300+ real stars")
-    
-    with col3:
-        if st.button("🔮 Single Prediction", use_container_width=True):
-            st.session_state.page = "🔮 Single Prediction"
-            st.rerun()
-        st.caption("Manual measurement entry")
-    
-    st.markdown("---")
-    
     # Footer
     st.markdown("""
     <div style='text-align: center; color: #95a5a6; padding: 20px;'>
