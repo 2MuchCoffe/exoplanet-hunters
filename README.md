@@ -169,11 +169,6 @@ Built with ❤️ for the NASA Space Apps Challenge 2025
 
 **Helping humanity discover new worlds** 🌟
 
-<<<<<<< HEAD
----
-
-=======
->>>>>>> 7247b7da0231a9c0d544f8bdac8d040ad83fe338
 ## 📝 License
 
 This project uses public NASA data and is created for the NASA Space Apps Challenge.
